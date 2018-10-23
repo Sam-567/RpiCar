@@ -14,8 +14,9 @@ public class CarCode {
     int M1Pin, M2Pin;
     int M1Pin2, M2Pin2;
     int Speed = 0;
-    int Angle; // -90 to 0 LEFT || 0 to 90 RIGHT
-    int M1Speed, M2Speed;
+    int Angle = 0; // -90 to 0 LEFT || 0 to 90 RIGHT
+    int M1Speed = 0;
+    int M2Speed = 0;
     //M1 = RIGHT MOTOR
     //M2 = LEFT MOTOR
 
@@ -43,6 +44,8 @@ public class CarCode {
 		SoftPwm.softPwmCreate(M2Pin, 0, 100);
 		SoftPwm.softPwmCreate(M1Pin2, 0, 100);
 		SoftPwm.softPwmCreate(M2Pin2, 0, 100);
+		
+		this.move();
 		
 		System.out.println("begin");
 		
@@ -135,11 +138,6 @@ public class CarCode {
 		
 	}
 	
-	public void RecursiveTurn(){
-		//Hows recursion work
-		
-		
-	}
 	
 	public void move(){
 		this.Turn();
