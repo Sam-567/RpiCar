@@ -5,7 +5,7 @@ import java.util.Scanner;
 import java.io.*;
 
 public class SocketTest extends Thread {
-   private ServerSocket serverSocket;
+   /*private ServerSocket serverSocket;
    
    public SocketTest(int port) throws IOException {
       serverSocket = new ServerSocket(port);
@@ -15,8 +15,7 @@ public class SocketTest extends Thread {
    public void run() {
       while(true) {
          try {
-            System.out.println("Waiting for client on port " + 
-               serverSocket.getLocalPort() + "...");
+            System.out.println("Waiting for client on port " + serverSocket.getLocalPort() + "...");
             Socket server = serverSocket.accept();
             
             System.out.println("Just connected to " + server.getRemoteSocketAddress());
@@ -51,5 +50,40 @@ public class SocketTest extends Thread {
       } catch (IOException e) {
          e.printStackTrace();
       }
-   }
+   }*/
+
+    static final int PORT = 2079;
+	static ServerSocket serverSocket;
+	static Socket server;
+	static DataInputStream in;
+	static DataOutputStream out;
+	public static void main(String[] args) throws InterruptedException, IOException{
+		//CarCode main =  new CarCode();
+		
+		/*Scanner input = new Scanner(System.in);
+		while(true) {
+			String test = input.nextLine();
+			out.writeUTF("Received");
+			main.ChangeMotorState(test);
+	    }
+		*/
+	    
+		serverSocket = new ServerSocket(PORT);
+		serverSocket.setSoTimeout(100000);
+		while(server == null) {
+	        server = serverSocket.accept();
+		}
+        in = new DataInputStream(server.getInputStream());
+        out = new DataOutputStream(server.getOutputStream());
+        System.out.println("server connected");
+        while(true) {
+        	if(in.available() > 0){
+        		String input = in.readUTF();
+        		out.writeUTF("received: " + input);
+        		System.out.println("got: " + input);
+        		out.flush();
+        		//main.ChangeMotorState(input);
+        	}
+        }
+	}
 }

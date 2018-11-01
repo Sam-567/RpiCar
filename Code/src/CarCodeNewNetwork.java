@@ -1,14 +1,18 @@
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
 import java.util.Scanner;
 import java.util.regex.Pattern;
-
+/*
 import com.pi4j.io.gpio.GpioController;
 import com.pi4j.io.gpio.GpioFactory;
 import com.pi4j.wiringpi.Gpio;
 import com.pi4j.wiringpi.SoftPwm;
+*/
 
-//Test
-
-public class CarCode {
+public class CarCodeNewNetwork {
 
     //final GpioController gpio;
     int M1Pin, M2Pin;
@@ -19,19 +23,41 @@ public class CarCode {
     int M2Speed = 0;
     //M1 = RIGHT MOTOR
     //M2 = LEFT MOTOR
-
+    static final int PORT = 2079;
+	static ServerSocket serverSocket;
+	static Socket server;
+	static DataInputStream in;
+	static DataOutputStream out;
 	
-	public static void main(String[] args) throws InterruptedException{
-		CarCodeNewNetwork main =  new CarCodeNewNetwork();
-		Scanner input = new Scanner(System.in);
+	public static void main(String[] args) throws InterruptedException, IOException{
+		CarCode main =  new CarCode();
+		
+		/*Scanner input = new Scanner(System.in);
 		while(true) {
 			String test = input.nextLine();
-			System.out.println("Received");
+			out.writeUTF("Received");
 			main.ChangeMotorState(test);
 	    }
+		*/
+	    
+		serverSocket = new ServerSocket(PORT);
+		serverSocket.setSoTimeout(100000);
+
+        server = serverSocket.accept();
+        in = new DataInputStream(server.getInputStream());
+        out = new DataOutputStream(server.getOutputStream());
+        
+        while(true) {
+        	if(in.available() > 0){
+        		String input = in.readUTF();
+        		out.writeUTF("received: " + input);
+        		System.out.println("received: " + input);
+        		main.ChangeMotorState(input);
+        	}
+        }
 	}
 	
-	public CarCode(){
+	public CarCodeNewNetwork(){
 		super();
 		//gpio = GpioFactory.getInstance();
 		Gpio.wiringPiSetup(); //This better not z******* fix it
@@ -47,7 +73,7 @@ public class CarCode {
 		
 		this.move();
 		
-		System.out.println("begin");
+		out.writeUTF("begin");
 		
 	}
 	
@@ -56,12 +82,14 @@ public class CarCode {
 		SoftPwm.softPwmStop(M2Pin);
 		SoftPwm.softPwmStop(M1Pin2);
 		SoftPwm.softPwmStop(M2Pin2);
-		System.out.println("Motors Closed");
+		out.writeUTF("Motors Closed");
+		server.close();
+		serverSocket.close();
 		System.exit(0);
 	}
 	
-	public void ChangeMotorState(String input){
-		System.out.println("Loop Received");
+	public void ChangeMotorState(String input) throws IOException{
+		out.writeUTF("Loop Received");
 		String numString  = input.replaceAll("([^-0-9])+", "");
 		int num = (numString.isEmpty()) ? -200 : Integer.parseInt(numString);
 		String Command = input.replaceAll("[^A-Za-z]+", "");
@@ -76,7 +104,7 @@ public class CarCode {
 			break;
 		
 		case "Turn":
-			System.out.println("ANGLE: " + num);
+			out.writeUTF("ANGLE: " + num);
 			Angle = num;
 			this.move();
 			break;
@@ -84,7 +112,7 @@ public class CarCode {
 		case "Stop":
 			Speed = 0;
 			Angle = 0;
-			System.out.println("Now Stopped");
+			out.writeUTF("Now Stopped");
 			break;
 			
 		case "Exit":
@@ -94,11 +122,11 @@ public class CarCode {
 		}
 	}
 	
-	public void Turn(){
+	public void Turn() throws IOException{
 		//M2 Left 
 		//M1 Right
-		M2Speed = Speed + Angle/2; System.out.println("a Left: " + M2Speed);
-		M1Speed = Speed - Angle/2; System.out.println("a Right: " + M1Speed);
+		M2Speed = Speed + Angle/2; out.writeUTF("a Left: " + M2Speed);
+		M1Speed = Speed - Angle/2; out.writeUTF("a Right: " + M1Speed);
 		Boolean Wrong = false;
 		
 		if(M2Speed > 100){
@@ -144,16 +172,16 @@ public class CarCode {
 
 		//Reset all pins to off (Prevent Short)
 		
-		if(M1Speed > 0){ SoftPwm.softPwmWrite(M1Pin2, 0);	SoftPwm.softPwmWrite(M1Pin, M1Speed); 	System.out.println("M1Pin2 Active");}
+		if(M1Speed > 0){ SoftPwm.softPwmWrite(M1Pin2, 0);	SoftPwm.softPwmWrite(M1Pin, M1Speed); 	out.writeUTF("M1Pin2 Active");}
 		else if(M1Speed < 0){ SoftPwm.softPwmWrite(M1Pin, 0);	SoftPwm.softPwmWrite(M1Pin2, -M1Speed); }
 		else if(M1Speed == 0){SoftPwm.softPwmWrite(M1Pin, 0); SoftPwm.softPwmWrite(M1Pin2, 0); }
 		
 		if(M2Speed > 0){ SoftPwm.softPwmWrite(M2Pin2, 0);	 SoftPwm.softPwmWrite(M2Pin, M2Speed); }
 		else if(M2Speed < 0){ SoftPwm.softPwmWrite(M2Pin, 0);	 SoftPwm.softPwmWrite(M2Pin2, -M2Speed); }
-		else if(M2Speed == 0){SoftPwm.softPwmWrite(M2Pin, 0); 	 SoftPwm.softPwmWrite(M2Pin2, 0); 	System.out.println("M2Pin2 Active");}
+		else if(M2Speed == 0){SoftPwm.softPwmWrite(M2Pin, 0); 	 SoftPwm.softPwmWrite(M2Pin2, 0); 	out.writeUTF("M2Pin2 Active");}
 		
 		
-		System.out.println("Right Speed: " + M1Speed + " LeftSpeed: " + M2Speed );
+		out.writeUTF("Right Speed: " + M1Speed + " LeftSpeed: " + M2Speed );
 	}
 	
 }
