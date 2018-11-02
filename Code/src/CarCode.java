@@ -24,11 +24,9 @@ public class CarCode {
 	
 	public static void main(String[] args) throws InterruptedException{
 <<<<<<< HEAD
-		//CarCode main =  new CarCode();
+<<<<<<< HEAD
+		CarCode main =  new CarCode();
 		System.out.println("X");
-=======
-		CarCodeNewNetwork main =  new CarCodeNewNetwork();
->>>>>>> caf1b8443e64b511af13c698af6d0d18c9d1f556
 		Scanner input = new Scanner(System.in);
 		
 		long LastTime = System.currentTimeMillis();
