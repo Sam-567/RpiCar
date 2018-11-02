@@ -10,7 +10,7 @@ import com.pi4j.wiringpi.SoftPwm;
 
 public class CarCode {
 
-    //final GpioController gpio;
+    final GpioController gpio;
     int M1Pin, M2Pin;
     int M1Pin2, M2Pin2;
     int Speed = 0;
@@ -22,7 +22,7 @@ public class CarCode {
 
 	
 	public static void main(String[] args) throws InterruptedException{
-		CarCodeNewNetwork main =  new CarCodeNewNetwork();
+		CarCode main =  new CarCode();
 		Scanner input = new Scanner(System.in);
 		while(true) {
 			String test = input.nextLine();

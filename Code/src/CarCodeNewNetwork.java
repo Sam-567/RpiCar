@@ -5,16 +5,16 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Scanner;
 import java.util.regex.Pattern;
-/*
+
 import com.pi4j.io.gpio.GpioController;
 import com.pi4j.io.gpio.GpioFactory;
 import com.pi4j.wiringpi.Gpio;
 import com.pi4j.wiringpi.SoftPwm;
-*/
+
 
 public class CarCodeNewNetwork {
 
-    //final GpioController gpio;
+    final GpioController gpio;
     int M1Pin, M2Pin;
     int M1Pin2, M2Pin2;
     int Speed = 0;
@@ -57,9 +57,9 @@ public class CarCodeNewNetwork {
         }
 	}
 	
-	public CarCodeNewNetwork(){
+	public CarCodeNewNetwork() throws IOException{
 		super();
-		//gpio = GpioFactory.getInstance();
+		gpio = GpioFactory.getInstance();
 		Gpio.wiringPiSetup(); //This better not z******* fix it
 		
 		M1Pin = 8;
@@ -77,7 +77,7 @@ public class CarCodeNewNetwork {
 		
 	}
 	
-	private void Exit(){
+	private void Exit() throws IOException{
 		SoftPwm.softPwmStop(M1Pin);
 		SoftPwm.softPwmStop(M2Pin);
 		SoftPwm.softPwmStop(M1Pin2);
@@ -167,7 +167,7 @@ public class CarCodeNewNetwork {
 	}
 	
 	
-	public void move(){
+	public void move() throws IOException{
 		this.Turn();
 
 		//Reset all pins to off (Prevent Short)
