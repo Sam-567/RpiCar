@@ -8,6 +8,8 @@ import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
 
+    Boolean Connected;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -19,7 +21,10 @@ public class MainActivity extends AppCompatActivity {
     public void Connect(View v){
         //Button ConnectButton = (Button)findViewById(R.id.ConnectButton);
         Button ConnectButton = (Button) v;
-        ConnectButton.setText("Worked!!!");
-        ConnectButton.setClickable(false);
+
+        if(Connected){
+            ConnectButton.setText("Disconnect");
+        }
+        //ConnectButton.setClickable(false);
     }
 }
