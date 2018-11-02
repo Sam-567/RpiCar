@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Pattern;
 
 import com.pi4j.io.gpio.GpioController;
@@ -24,10 +25,20 @@ public class CarCode {
 	public static void main(String[] args) throws InterruptedException{
 		CarCode main =  new CarCode();
 		Scanner input = new Scanner(System.in);
+		
+		long LastTime = System.currentTimeMillis();
 		while(true) {
-			String test = input.nextLine();
-			System.out.println("Received");
-			main.ChangeMotorState(test);
+			//System.out.println("Received");
+			//main.ChangeMotorState(test);
+			
+			if(input.hasNext()) {
+				String test = input.nextLine();
+				System.out.println(test);
+			} else {
+				System.out.println("FALSE");
+			}
+			System.out.println("TEST");
+			TimeUnit.SECONDS.sleep(1);
 	    }
 	}
 	
