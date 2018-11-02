@@ -10,20 +10,27 @@
         android:id="@+id/seekBar"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        tools:layout_editor_absoluteX="42dp"
-        tools:layout_editor_absoluteY="153dp"
+        android:layout_alignStart="@+id/seekBar3"
         android:layout_centerVertical="true"
-        android:layout_alignStart="@+id/seekBar3" />
+        android:max="200"
+        android:onClick="Turn"
+
+        android:progress="100"
+        tools:layout_editor_absoluteX="42dp"
+        tools:layout_editor_absoluteY="153dp" />
 
     <SeekBar
         android:id="@+id/seekBar3"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        tools:layout_editor_absoluteX="42dp"
-        tools:layout_editor_absoluteY="237dp"
         android:layout_above="@+id/seekBar"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="70dp" />
+        android:layout_marginBottom="70dp"
+        android:max="100"
+        android:onClick="ChangeSpeed"
+
+        tools:layout_editor_absoluteX="42dp"
+        tools:layout_editor_absoluteY="237dp" />
 
     <Button
         android:id="@+id/ConnectButton"
@@ -48,9 +55,25 @@
         android:text="Button"
         tools:layout_editor_absoluteY="51dp"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toRightOf="@+id/button"
+        app:layout_constraintLeft_toRightOf="@+id/ConnectButton"
         android:layout_marginTop="31dp"
         android:layout_alignParentTop="true"
         android:layout_alignEnd="@+id/seekBar3" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/seekBar3"
+        android:layout_alignStart="@+id/seekBar"
+        android:text="Speed" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/seekBar"
+        android:layout_alignStart="@+id/seekBar"
+        android:text="Direction" />
 
 </RelativeLayout>
