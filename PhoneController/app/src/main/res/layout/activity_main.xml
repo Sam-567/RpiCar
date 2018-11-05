@@ -8,72 +8,63 @@
 
     <SeekBar
         android:id="@+id/seekBar"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/seekBar3"
-        android:layout_centerVertical="true"
+        android:layout_width="301dp"
+        android:layout_height="44dp"
+
+        android:layout_alignEnd="@+id/ConnectButton"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="105dp"
         android:max="200"
         android:onClick="Turn"
-
         android:progress="100"
         tools:layout_editor_absoluteX="42dp"
         tools:layout_editor_absoluteY="153dp" />
-
-    <SeekBar
-        android:id="@+id/seekBar3"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/seekBar"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="70dp"
-        android:max="100"
-        android:onClick="ChangeSpeed"
-
-        tools:layout_editor_absoluteX="42dp"
-        tools:layout_editor_absoluteY="237dp" />
 
     <Button
         android:id="@+id/ConnectButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Connect"
-        app:layout_constraintRight_toLeftOf="@+id/button2"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintBottom_toBottomOf="@+id/button2"
-        app:layout_constraintTop_toTopOf="@+id/button2"
-        app:layout_constraintVertical_bias="1.0"
         android:layout_alignBaseline="@+id/button2"
-        android:layout_alignBottom="@+id/button2"
         android:layout_alignStart="@+id/seekBar3"
+        android:layout_alignBottom="@+id/button2"
+        android:layout_marginStart="368dp"
+        android:layout_marginBottom="3dp"
+        android:onClick="Connect"
+        android:text="Connect"
+        app:layout_constraintBottom_toBottomOf="@+id/button2"
+        app:layout_constraintLeft_toLeftOf="parent"
 
-        android:onClick="Connect"/>
+        app:layout_constraintRight_toLeftOf="@+id/button2"
+        app:layout_constraintTop_toTopOf="@+id/button2"
+        app:layout_constraintVertical_bias="1.0" />
 
     <Button
         android:id="@+id/button2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Button"
-        tools:layout_editor_absoluteY="51dp"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toRightOf="@+id/ConnectButton"
-        android:layout_marginTop="31dp"
+        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_alignEnd="@+id/seekBar3" />
+        android:layout_marginStart="247dp"
+        android:layout_marginTop="59dp"
+        android:text="Stop"
+        app:layout_constraintLeft_toRightOf="@+id/ConnectButton"
+        app:layout_constraintRight_toRightOf="parent"
+        tools:layout_editor_absoluteY="51dp" />
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/seekBar3"
-        android:layout_alignStart="@+id/seekBar"
-        android:text="Speed" />
+    <SeekBar
+        android:id="@+id/seekBar3"
+        android:layout_width="22dp"
+        android:layout_height="288dp"
+        android:layout_alignParentStart="true"
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/seekBar"
-        android:layout_alignStart="@+id/seekBar"
-        android:text="Direction" />
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="78dp"
+        android:layout_marginBottom="5dp"
+        android:max="100"
+        android:onClick="ChangeSpeed"
+        android:rotation="270"
+        tools:layout_editor_absoluteX="42dp"
+        tools:layout_editor_absoluteY="237dp" />
 
 </RelativeLayout>
