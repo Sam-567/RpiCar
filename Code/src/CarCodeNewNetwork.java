@@ -41,7 +41,7 @@ public class CarCodeNewNetwork {
 		*/
 	    
 		serverSocket = new ServerSocket(PORT);
-		serverSocket.setSoTimeout(100000);
+		serverSocket.setSoTimeout(1000000);
 
         server = serverSocket.accept();
         in = new DataInputStream(server.getInputStream());

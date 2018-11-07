@@ -82,6 +82,7 @@ public class SocketTest extends Thread {
         		out.writeUTF("received: " + input);
         		System.out.println("got: " + input);
         		out.flush();
+        		//System.out.println("test");
         		//main.ChangeMotorState(input);
         	}
         }
