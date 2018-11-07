@@ -24,16 +24,14 @@
         android:id="@+id/seekBar3"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="51dp"
 
         android:max="200"
         android:onClick="ChangeSpeed"
         tools:layout_editor_absoluteX="42dp"
         tools:layout_editor_absoluteY="237dp"
         android:rotation="270"
-        android:layout_above="@+id/textView3"
-        android:layout_alignEnd="@+id/textView3"
-        android:layout_marginEnd="42dp" />
+        android:layout_above="@+id/seekBar"
+        android:layout_toStartOf="@+id/textView3" />
 
     <Button
         android:id="@+id/ConnectButton"
@@ -44,9 +42,10 @@
         app:layout_constraintVertical_bias="1.0"
 
         android:onClick="Connect"
-        android:layout_alignBottom="@+id/seekBar3"
+        android:layout_marginTop="30dp"
+        android:layout_alignParentTop="true"
         android:layout_toEndOf="@+id/textView3"
-        android:layout_marginStart="71dp" />
+        android:layout_marginStart="42dp" />
 
     <TextView
         android:id="@+id/textView3"
